@@ -1,0 +1,85 @@
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    background-color: black;
+    overflow: hidden;
+}
+
+#gif {
+    position: fixed;
+    width: calc(100vw - 50px);
+    height: calc(100vh - 140px);
+    object-fit: cover;
+    inset: 60px 25px 80px 25px;
+    border-radius: 10px;
+}
+
+#back-gif {
+    display: none;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+#radio-name {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    font-family: "VT323";
+    font-size: 5px;
+}
+
+.button-wrapper {
+    display: flex;
+    height: max-content;
+    position: absolute;
+    bottom: 3px;
+    left: 10px;
+}
+.buttons {
+    height: 4px;
+    width: 4px;
+    cursor: pointer;
+}
+
+
+
+#player {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    pointer-events: none;
+    filter: brightness(60%);
+}
+
+.navbar {
+    display: flex;
+    height: max-content;
+    width: 100%;
+    justify-content: end;
+    z-index: 200;
+}
+
+#profile {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    z-index: 300;
+}
+
+#fullscreen-enter, #fullscreen-exit {
+    height: 6px;
+    width: 6px;
+    margin-top: 2px;
+    margin-right: 5px;
+    z-index: 300;
+}
+
+#fullscreen-enter:hover, #fullscreen-exit:hover {
+    cursor: pointer;
+}
