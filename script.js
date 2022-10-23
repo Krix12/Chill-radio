@@ -30,6 +30,7 @@ function onYouTubeIframeAPIReady() {
   const play = document.getElementById("play")
 
   pause.addEventListener("click", () => {
+    console.log("OK")
     player.pauseVideo();
     pause.style.display = "none"
     play.style.display = "inherit"

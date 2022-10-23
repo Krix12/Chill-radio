@@ -25,11 +25,11 @@ body {
 
 #radio-name {
     position: absolute;
-    bottom: 10px;
+    bottom: 30px;
     left: 10px;
     color: white;
     font-family: "VT323";
-    font-size: 5px;
+    font-size: 31px;
 }
 
 .button-wrapper {
@@ -40,8 +40,8 @@ body {
     left: 10px;
 }
 .buttons {
-    height: 4px;
-    width: 4px;
+    height: 22px;
+    width: 22px;
     cursor: pointer;
 }
 
@@ -66,16 +66,17 @@ body {
 }
 
 #profile {
-    height: 10px;
-    width: 10px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
     z-index: 300;
+    cursor: pointer;
 }
 
 #fullscreen-enter, #fullscreen-exit {
-    height: 6px;
-    width: 6px;
-    margin-top: 2px;
+    height: 38px;
+    width: 38px;
+    margin-top: 6px;
     margin-right: 5px;
     z-index: 300;
 }
