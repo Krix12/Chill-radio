@@ -97,7 +97,7 @@ right: 0;
   font-family: "VT323";
    transform-origin: right bottom;
   transform: rotate(-90deg) scaleY(-1) scaleX(-1) translateX(50%); 
-  
+  z-index: 300;
 }
 
 .menu-wrapper {
