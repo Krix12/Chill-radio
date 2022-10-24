@@ -84,3 +84,37 @@ body {
 #fullscreen-enter:hover, #fullscreen-exit:hover {
     cursor: pointer;
 }
+
+.sideMenu {
+    display: flex;
+position: fixed;
+right: 0;
+  background-color: red;
+  width:100vh;    
+  height:17px;
+  color: white;
+  text-decoration: none;
+  font-family: "VT323";
+   transform-origin: right bottom;
+  transform: rotate(-90deg) scaleY(-1) scaleX(-1) translateX(50%); 
+  
+}
+
+.menu-wrapper {
+    display: flex;
+    position: absolute;
+    left: 0;
+    width: 80vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transform-origin: right bottom;
+    transform: translateX(50%);
+    height: max-content;
+}
+.sideMenu p {
+ margin-right:20px;
+ float: left;
+  font-size: 17px;
+  cursor: pointer;
+}
