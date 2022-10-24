@@ -47,8 +47,17 @@ body {
 
 
 
+
+.youtube-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */  
+    padding-top: 25px;
+    width: 300%; /* enlarge beyond browser width */
+    left: -100%; /* center */
+}
+
 #player {
-    position: absolute; 
+    position: absolute;
     top: 0; 
     left: 0; 
     width: 100%; 
@@ -57,7 +66,10 @@ body {
     filter: brightness(60%);
 }
 
+
 .navbar {
+    position: absolute;
+    top: 0;
     display: flex;
     height: max-content;
     width: 100%;
@@ -91,7 +103,7 @@ position: fixed;
 right: 0;
   background-color: red;
   width:100vh;    
-  height:17px;
+  height:21px;
   color: white;
   text-decoration: none;
   font-family: "VT323";
@@ -115,6 +127,10 @@ right: 0;
 .sideMenu p {
  margin-right:20px;
  float: left;
-  font-size: 17px;
+  font-size: 21px;
   cursor: pointer;
+}
+
+.sideMenu p:hover {
+    color: #C7C7C7;
 }

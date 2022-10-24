@@ -1,4 +1,6 @@
-console.log("OK")
+
+const videoIDs = ["gAzDu-Elfno", "PO7FETKjmA4", "jfKfPfyJRdk", "FJPtYDpCiqg", "LTTV7r8dAk4", "9UMxZofMNbA"]
+let currVideo = 0;
  var tag = document.createElement('script');
 
  tag.src = "https://www.youtube.com/iframe_api";
@@ -8,7 +10,7 @@ console.log("OK")
  var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-      videoId: 'FJPtYDpCiqg',
+      videoId: 'gAzDu-Elfno',
       playerVars: { 'autoplay': 1, 'controls': 0, "disablekb": 1, "fs": 0, "iv_load_policy": 3, "modestbranding": 1, "showinfo": 0, "autohide": 1, "rel": 0, "mute": 1 },
       events: {
         'onReady': onPlayerReady,
@@ -16,36 +18,52 @@ function onYouTubeIframeAPIReady() {
       }
     });
   }
-  function onPlayerReady(event) {
-    player.playVideo();
-    const embedCode = player.getVideoEmbedCode()
-    const parser = new DOMParser();
-    const htmlDoc = parser.parseFromString(embedCode, 'text/html');
-    const iframe = htmlDoc.querySelector("iframe")
+
+  function setTitle() {
+    console.log("TITLER")
+    const iframe = player.getIframe();
     const title = iframe.getAttribute("title")
     document.getElementById("radio-name").innerHTML = title
   }
+  async function onPlayerReady(event) {
+    await player.loadPlaylist(videoIDs);
+    player.setLoop(true);
+    await player.playVideo();
+    //setTimeout(setTitle(), 3000)
+  }
+
   player.unMute()
-  const pause = document.getElementById("pause");
-  const play = document.getElementById("play")
 
-  pause.addEventListener("click", () => {
-    console.log("OK")
+  function pause(button) {
+    const playButton = document.getElementById("play")
+    console.log("NICE")
     player.pauseVideo();
-    pause.style.display = "none"
-    play.style.display = "inherit"
-  })
+    button.style.display = "none"
+    playButton.style.display = "inherit"
+  }
 
-  play.addEventListener("click", () => {
+  function play(button) {
+    const pauseButton = document.getElementById("pause")
+    console.log("NICE")
     player.playVideo();
-    play.style.display = "none"
-    pause.style.display = "inherit"
-  })
+    button.style.display = "none"
+    pauseButton.style.display = "inherit"
+  }
+  
 
+  function forward() {
+    player.nextVideo()
+    setTimeout(setTitle(), 3000);
 
-
-
-
+    
+  
+  }
+  
+  function previous() {
+    player.previousVideo();
+    setTimeout(setTitle(), 3000);
+  }
+  
 
 function enterFullscreen() {
   const elem = document.querySelector("body")
