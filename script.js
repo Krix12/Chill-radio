@@ -1,4 +1,4 @@
-
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 const videoIDs = ["gAzDu-Elfno", "PO7FETKjmA4", "jfKfPfyJRdk", "FJPtYDpCiqg", "LTTV7r8dAk4", "9UMxZofMNbA"]
 let currVideo = 0;
  var tag = document.createElement('script');
@@ -19,20 +19,27 @@ function onYouTubeIframeAPIReady() {
     });
   }
 
-  function setTitle() {
-    console.log("TITLER")
-    const iframe = player.getIframe();
-    const title = iframe.getAttribute("title")
-    document.getElementById("radio-name").innerHTML = title
+  function setTitle(action) {
+    const index = player.getPlaylistIndex()
+    let videoId
+    if(action == "previous") index == 0 ? videoId = videoIDs[videoIDs.length - 1] : videoId = videoIDs[index - 1]
+    else if(action == "start") videoId = videoIDs[0]
+    else if(action == "forward") index == videoIDs[videoIDs.length - 1] ? videoId = videoIDs[0] : videoId = videoIDs[index + 1]
+    console.log(index)
+    fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`)}&format=json`)
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("radio-name").innerHTML = data.title
+    })
+
   }
   async function onPlayerReady(event) {
     await player.loadPlaylist(videoIDs);
     player.setLoop(true);
     await player.playVideo();
-    //setTimeout(setTitle(), 3000)
+    setTitle("start")
   }
 
-  player.unMute()
 
   function pause(button) {
     const playButton = document.getElementById("play")
@@ -51,17 +58,15 @@ function onYouTubeIframeAPIReady() {
   }
   
 
-  function forward() {
-    player.nextVideo()
-    setTimeout(setTitle(), 3000);
 
-    
-  
+  async function forward() {
+    await player.nextVideo()
+   setTitle("forward");
   }
   
   function previous() {
     player.previousVideo();
-    setTimeout(setTitle(), 3000);
+    setTitle("previous");
   }
   
 
