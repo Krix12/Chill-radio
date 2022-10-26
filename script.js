@@ -1,5 +1,5 @@
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
-const videoIDs = ["gAzDu-Elfno", "PO7FETKjmA4", "jfKfPfyJRdk", "FJPtYDpCiqg", "LTTV7r8dAk4", "9UMxZofMNbA"]
+const videoIDs = ["sT1KpjKbsTk", "gAzDu-Elfno", "PO7FETKjmA4", "jfKfPfyJRdk", "FJPtYDpCiqg", "9UMxZofMNbA"]
 let currVideo = 0;
  var tag = document.createElement('script');
 
@@ -10,7 +10,7 @@ let currVideo = 0;
  var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-      videoId: 'gAzDu-Elfno',
+      videoId: 'sT1KpjKbsTk',
       playerVars: { 'autoplay': 1, 'controls': 0, "disablekb": 1, "fs": 0, "iv_load_policy": 3, "modestbranding": 1, "showinfo": 0, "autohide": 1, "rel": 0, "mute": 1 },
       events: {
         'onReady': onPlayerReady,
@@ -20,11 +20,11 @@ function onYouTubeIframeAPIReady() {
   }
 
   function setTitle(action) {
-    const index = player.getPlaylistIndex()
+    const index = action == "forward" ? currVideo - 1 : currVideo + 1
     let videoId
     if(action == "previous") index == 0 ? videoId = videoIDs[videoIDs.length - 1] : videoId = videoIDs[index - 1]
     else if(action == "start") videoId = videoIDs[0]
-    else if(action == "forward") index == videoIDs[videoIDs.length - 1] ? videoId = videoIDs[0] : videoId = videoIDs[index + 1]
+    else if(action == "forward") index == videoIDs.length - 1 ? videoId = videoIDs[0] : videoId = videoIDs[index + 1]
     console.log(index)
     fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`)}&format=json`)
     .then((response) => response.json())
@@ -34,9 +34,7 @@ function onYouTubeIframeAPIReady() {
 
   }
   async function onPlayerReady(event) {
-    await player.loadPlaylist(videoIDs);
-    player.setLoop(true);
-    await player.playVideo();
+    event.target.playVideo()
     setTitle("start")
   }
 
@@ -59,13 +57,15 @@ function onYouTubeIframeAPIReady() {
   
 
 
-  async function forward() {
-    await player.nextVideo()
+  function forward() {
+    if(currVideo == videoIDs.length - 1) player.loadVideoById(videoIDs[currVideo = 0])
+    else player.loadVideoById(videoIDs[currVideo = currVideo + 1])
    setTitle("forward");
   }
   
   function previous() {
-    player.previousVideo();
+    if(currVideo == 0) player.loadVideoById(videoIDs[currVideo = videoIDs.length - 1])
+    else player.loadVideoById(videoIDs[currVideo = currVideo - 1])
     setTitle("previous");
   }
   
