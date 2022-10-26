@@ -20,12 +20,16 @@ function onYouTubeIframeAPIReady() {
   }
 
   function setTitle(action) {
-    const index = action == "forward" ? currVideo - 1 : currVideo + 1
-    let videoId
+    let index
+    if(action == "forward") index = currVideo - 1 
+    else if(action == "previous") index = currVideo + 1
+    else index = currVideo
+
+    let videoId = videoIDs[index]
     if(action == "previous") index == 0 ? videoId = videoIDs[videoIDs.length - 1] : videoId = videoIDs[index - 1]
     else if(action == "start") videoId = videoIDs[0]
     else if(action == "forward") index == videoIDs.length - 1 ? videoId = videoIDs[0] : videoId = videoIDs[index + 1]
-    console.log(index)
+
     fetch(`https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`)}&format=json`)
     .then((response) => response.json())
     .then((data) => {
@@ -41,7 +45,6 @@ function onYouTubeIframeAPIReady() {
 
   function pause(button) {
     const playButton = document.getElementById("play")
-    console.log("NICE")
     player.pauseVideo();
     button.style.display = "none"
     playButton.style.display = "inherit"
@@ -49,7 +52,7 @@ function onYouTubeIframeAPIReady() {
 
   function play(button) {
     const pauseButton = document.getElementById("pause")
-    console.log("NICE")
+  
     player.playVideo();
     button.style.display = "none"
     pauseButton.style.display = "inherit"
@@ -69,6 +72,15 @@ function onYouTubeIframeAPIReady() {
     setTitle("previous");
   }
   
+
+  function shuffle() {
+      let id = Math.floor(Math.random() * (videoIDs.length - 1))
+      if(id == currVideo) id == videoIDs.length - 1 ? id = id - 1 : id = id + 1;
+      currVideo = id
+    player.loadVideoById(videoIDs[id])
+    setTitle()
+  }
+
 
 function enterFullscreen() {
   const elem = document.querySelector("body")
