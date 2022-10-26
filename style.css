@@ -6,6 +6,39 @@ body {
     overflow: hidden;
 }
 
+#rgb-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(Images/lines.jpg);
+    z-index: 11;
+    background-size: 7px auto;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    opacity: 0.4;
+    animation: 150s linear infinite;
+}
+
+#vignette {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0.6;
+    background: url(Images/vignette.png);
+    background-size: 100% 100%;
+    mix-blend-mode: overlay;
+    z-index: 10;
+}
+#starting-gif {
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    filter: brightness(70%);
+}
+
 #gif {
     position: fixed;
     width: calc(100vw - 50px);
