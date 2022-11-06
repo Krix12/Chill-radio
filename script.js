@@ -1,3 +1,6 @@
+
+
+
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 const videoIDs = ["sT1KpjKbsTk", "gAzDu-Elfno", "PO7FETKjmA4", "jfKfPfyJRdk", "FJPtYDpCiqg", "9UMxZofMNbA"]
 let currVideo = 0;
@@ -11,7 +14,7 @@ let currVideo = 0;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
       videoId: 'sT1KpjKbsTk',
-      playerVars: { 'autoplay': 1, 'controls': 0, "disablekb": 1, "fs": 0, "iv_load_policy": 3, "modestbranding": 1, "showinfo": 0, "autohide": 1, "rel": 0, "mute": 1 },
+      playerVars: { 'autoplay': 1, 'controls': 0, "disablekb": 1, "fs": 0, "iv_load_policy": 3, "modestbranding": 1, "showinfo": 0, "autohide": 1, "rel": 0, "mute": 0 },
       events: {
         'onReady': onPlayerReady,
 
@@ -19,6 +22,17 @@ function onYouTubeIframeAPIReady() {
     });
   }
 
+  window.addEventListener("keydown", function(event) {
+    player.playVideo()
+    document.getElementsByClassName("starter")[0].style.display = "none"
+    document.getElementsByClassName("platform")[0].style.display = "inherit"
+  })
+  
+  function start() {
+    player.playVideo()
+    document.getElementsByClassName("starter")[0].style.display = "none"
+    document.getElementsByClassName("platform")[0].style.display = "inherit"
+  }
   function setTitle(action) {
     let index
     if(action == "forward") index = currVideo - 1 
